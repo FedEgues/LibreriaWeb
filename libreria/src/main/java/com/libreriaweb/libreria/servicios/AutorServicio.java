@@ -6,8 +6,10 @@
 package com.libreriaweb.libreria.servicios;
 
 import com.libreriaweb.libreria.entidades.Autor;
+import com.libreriaweb.libreria.errores.ErrorServicio;
 import com.libreriaweb.libreria.repositorios.AutorRepositorio;
-import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,16 +19,45 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AutorServicio {
-    
+
     @Autowired
     private AutorRepositorio autorRepositorio;
-     
-    public void guardarAutor(String nombre){
-        Autor autor = new Autor(nombre,true);
+
+    public void guardarAutor(String nombre) throws ErrorServicio {
+        if (nombre == null || nombre.isEmpty()) {
+            throw new ErrorServicio("El nombre del autor no puede ser nulo.");
+        }
+
+        Autor autor = new Autor(nombre, true);
         autorRepositorio.save(autor);
     }
-    
-    public List<Autor>  listarAutores(){
-        return autorRepositorio.findAll();
+
+    public void modificarNombre(String id, String nombre) throws ErrorServicio {
+
+        if (nombre == null || nombre.isEmpty()) {
+            throw new ErrorServicio("El nombre del autor no puede ser nulo.");
+        }
+
+        Optional<Autor> respuesta = autorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Autor autor = respuesta.get();  
+            autor.setNombre(nombre);
+
+            autorRepositorio.save(autor);
+        } else {
+            throw new ErrorServicio("No se encontro el autor buscado");
+        }
+    }
+
+    public void darBaja(String id) throws ErrorServicio {
+
+        Optional<Autor> respuesta = autorRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Autor autor = respuesta.get();
+            autor.setAlta(false);
+        } else {
+            throw new ErrorServicio("No se encontro el autor relacionado al id ingresado.");
+        }
+
     }
 }

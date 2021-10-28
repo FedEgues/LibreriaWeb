@@ -5,11 +5,8 @@
  */
 package com.libreriaweb.libreria.repositorios;
 
-import com.libreriaweb.libreria.entidades.Autor;
+import com.libreriaweb.libreria.entidades.Editorial;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,10 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author ericec
  */
 @Repository
-public interface AutorRepositorio extends JpaRepository<Autor, String> {
-    
-    @Query("SELECT c FROM Autor c WHERE c.nombre = :nombre")
-    public Autor buscarPorNombre(@Param("nombre")String nombre);
-    
+public interface EditorRepositorio extends JpaRepository<Editorial, String> {
     
 }
