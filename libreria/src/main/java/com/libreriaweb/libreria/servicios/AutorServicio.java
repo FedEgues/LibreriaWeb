@@ -9,6 +9,7 @@ import com.libreriaweb.libreria.entidades.Autor;
 import com.libreriaweb.libreria.errores.ErrorServicio;
 import com.libreriaweb.libreria.repositorios.AutorRepositorio;
 import java.util.Optional;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class AutorServicio {
     @Autowired
     private AutorRepositorio autorRepositorio;
 
+    @Transactional
     public void guardarAutor(String nombre) throws ErrorServicio {
         if (nombre == null || nombre.isEmpty()) {
             throw new ErrorServicio("El nombre del autor no puede ser nulo.");
@@ -31,7 +33,7 @@ public class AutorServicio {
         Autor autor = new Autor(nombre, true);
         autorRepositorio.save(autor);
     }
-
+    @Transactional
     public void modificarNombre(String id, String nombre) throws ErrorServicio {
 
         if (nombre == null || nombre.isEmpty()) {

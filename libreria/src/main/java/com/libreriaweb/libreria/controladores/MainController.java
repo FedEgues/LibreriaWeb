@@ -5,6 +5,7 @@
  */
 package com.libreriaweb.libreria.controladores;
 
+import com.libreriaweb.libreria.errores.ErrorServicio;
 import com.libreriaweb.libreria.servicios.AutorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class MainController {
         return "index";
     } 
     
-   public String guardarAutor(String nombre){
+   public String guardarAutor(String nombre)throws ErrorServicio{
        autorservicio.guardarAutor(nombre);
        return "index";
    } 
