@@ -5,10 +5,12 @@
  */
 package com.libreriaweb.libreria.entidades;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -16,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author ericec
  */
 @Entity
-public class Libro {
+public class Libro implements Serializable {
     
     @Id
     @GeneratedValue(generator="uuid")
@@ -29,9 +31,9 @@ public class Libro {
     private Integer ejemplaresPrestados;
     private Integer ejemplaresRestantes;
     private Boolean alta;
-    @OneToOne
+    @ManyToOne
     private Autor autor;
-    @OneToOne
+    @ManyToOne
     private Editorial editorial;
 
     public Libro() {
