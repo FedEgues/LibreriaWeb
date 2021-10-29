@@ -25,10 +25,11 @@ public class MainController {
     @Autowired
     private AutorServicio autorservicio;
     
-    @GetMapping("")
+    @GetMapping("/")
     public String index(){
         return "index";
     } 
+    
     
    public String guardarAutor(String nombre)throws ErrorServicio{
        autorservicio.guardarAutor(nombre);
