@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -33,6 +33,7 @@ public class AutorServicio {
         Autor autor = new Autor(nombre, true);
         autorRepositorio.save(autor);
     }
+    
     @Transactional
     public void modificarNombre(String id, String nombre) throws ErrorServicio {
 
@@ -50,7 +51,7 @@ public class AutorServicio {
             throw new ErrorServicio("No se encontro el autor buscado");
         }
     }
-
+    @Transactional
     public void darBaja(String id) throws ErrorServicio {
 
         Optional<Autor> respuesta = autorRepositorio.findById(id);

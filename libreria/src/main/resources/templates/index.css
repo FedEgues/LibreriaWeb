@@ -1,0 +1,28 @@
+header{
+    transition: box-shadow 0.5s ease;
+    background-color: rgb(53, 89, 121,0.5);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin:auto;
+    text-indent:0.5cm;
+    border-radius: 0.3cm;
+    margin:40px;
+    border-color: antiquewhite;
+    font-family:'Open Sans', sans-serif;
+}
+body{
+    background-image:url(Imagenes/libros.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color:black;
+}
+h1 {font-weight: bolder;
+    text-align: center;
+
+}
+table{
+position: center;
+
+}
