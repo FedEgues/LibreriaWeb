@@ -11,14 +11,28 @@ header{
     font-family:'Open Sans', sans-serif;
 }
 body{
-    background-image:url(Imagenes/libros.jpg);
+    background-image:url(autores.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-color:black;
+    background-color:white;
 }
 h1 {font-weight: bolder;
     text-align: center;
-    background-color: aquamarine;
+    padding-top: 10px;
+}
+.btn-secondary {
+    color: #fff;
+    transition: box-shadow 0.5s ease;
+    background-color: rgb(53, 89, 121, 0.5);
+    border-color: #6c757d;
+    text-decoration: none;
+  }
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color:greenyellow;
 }
