@@ -9,9 +9,10 @@ header{
     margin:40px;
     border-color: antiquewhite;
     font-family:'Open Sans', sans-serif;
+    color:gainsboro;
 }
 body{
-    background-image:url(autores.jpg);
+    background-image:url(biblioteca.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -29,10 +30,24 @@ h1 {font-weight: bolder;
     border-color: #6c757d;
     text-decoration: none;
   }
-a{
-    text-decoration: none;
-    color: black;
+
+container{
+    width: 100%;
+    padding-right: var(--bs-gutter-x, 0.75rem);
+    padding-left: var(--bs-gutter-x, 0.75rem);
+    margin-right: auto;
+    margin-left: auto;
+    background-color: grey;
 }
-a:hover{
-    color:greenyellow;
+btn-primary {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    place-content: center;
+    
+  }
+
+  btn-primary #primero{
+    background-color: #d9fd0d;
+    border-color: #d9fd0d;
 }

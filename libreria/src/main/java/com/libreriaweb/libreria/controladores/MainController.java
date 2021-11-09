@@ -30,6 +30,19 @@ public class MainController {
         return "index";
     } 
     
+    @GetMapping("/OpcionesAutor")
+    private String OpcionesAutor(){
+            return "OpcionesAutor.html";
+            }
+    
+      @GetMapping("/OpcionesEditorial")
+    private String OpcionesEditorial(){
+            return "OpcionesEditorial.html";
+            }
+      @GetMapping("/OpcionesLibro")
+    private String OpcionesLibro(){
+            return "OpcionesLibro.html";
+            }
     
    public String guardarAutor(String nombre)throws ErrorServicio{
        autorservicio.guardarAutor(nombre);
