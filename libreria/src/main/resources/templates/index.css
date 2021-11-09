@@ -1,8 +1,8 @@
 header{
     transition: box-shadow 0.5s ease;
-    background-color: rgb(53, 89, 121,0.5);
+    background-color: rgb(53, 89, 121, 0.5);
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     margin:auto;
     text-indent:0.5cm;
     border-radius: 0.3cm;
@@ -20,9 +20,5 @@ body{
 }
 h1 {font-weight: bolder;
     text-align: center;
-
-}
-table{
-position: center;
-
+    background-color: aquamarine;
 }
