@@ -16,62 +16,71 @@ and open the template in the editor.
         <header class="container">
             <h1>Ingreso de Libro </h1>
         </header>
-        <div class="container">
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">ISBN del libro:</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            <br>
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Nombre del libro:</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            <br>
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Año del libro:</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            <br>
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Cantidad de ejemplares</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            <br>
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Ejemplares prestados</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            <br>
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Nombre restantes:</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            <br>
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Nombre del Autor</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            <br>
-          </div>
-          <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-sm">Nombre de Editorial</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-            <br>
-         
-        </div> 
-        <div class="container">
-            <div class="d-grid gap-2" id="primero">
-              <button class="btn btn-primary" type="button">INGRESAR DATOS</button>
-              
+        
+       <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form action="/ingresarlibro" method="POST">
+                    <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label" >ISBN del libro</label>
+                      <input type="text" class="form-control" name="ISBN" placeholder="Ingrese aqui el ISBN del libro">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" >Titulo del libro</label>
+                        <input type="text" class="form-control" name="titulo" placeholder="Ingrese aqui el nombre del libro">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" >Año del libro</label>
+                        <input type="text" class="form-control" name="Año" placeholder="Ingrese aqui el año del libro">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" >Ejemplares adquiridos por la biblioteca</label>
+                        <input type="text" class="form-control" name="ejemplarestotales" placeholder="Ingrese aqui los ejemplares totales de la biblioteca">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" >Ejemplares prestados por la biblioteca</label>
+                        <input type="text" class="form-control" name="ejemplaresprestados" placeholder="Ingrese aqui la cantidad de  ejemplares prestados">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" >Ejemplares disponibles en la biblioteca</label>
+                        <input type="text" class="form-control" name="ejempalresdisponibles" placeholder="Ingrese aqui la cantidad de  ejemplares disponibles">
+                    </div>
+                     
+                    
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" >Indicar el Autor del libro</label>
+                        <input type="text" class="form-control" name="autor" placeholder="Ingrese aqui el autor de la obra">
+                    </div>
+                     
+                    
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" >Indique la editorial</label>
+                        <input type="text" class="form-control" name="editorial" placeholder="Ingrese aqui la editorial del libro">
+                    </div>
+                     
+                   
+                    <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Ingresar Libro a la base de datos</button>
+                    </div>
+
+                    
+                  </form>
             </div>
           </div>
-          <br>
+        
+         
+         
         <div class="container">
           <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="button">VOLVER A LA PRINCIPAL</button>
+           <a href="/"> <button class="btn btn-primary" type="button" >Volver a principal</a></button>
             
-          </div>
+          
         </div>
-
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
     </body>
 </html>

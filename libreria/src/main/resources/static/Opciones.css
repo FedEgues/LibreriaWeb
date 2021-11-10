@@ -46,8 +46,12 @@ btn-primary {
     place-content: center;
     
   }
-
-  btn-primary #primero{
-    background-color: #d9fd0d;
-    border-color: #d9fd0d;
+a{
+    color: #fff;
+    text-decoration: none; 
+    position:relative;
+}
+a:hover{
+    text-decoration: none;
+    color: #fff;
 }
