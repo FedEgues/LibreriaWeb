@@ -25,26 +25,28 @@ public class LibroServicio {
     @Autowired
     LibroRepositorio libroRepositorio;
     
-    /*CRUD*/
+    /*CRED*/
     @Transactional
-    public void guardarLibro(Long isbn,String titulo,Integer anio,Integer ejemplares,Integer ejemplaresPrestados,Integer ejemplaresRestantes,Boolean alta,Autor autor,Editorial editorial)throws ErrorServicio{
-          validar(isbn,titulo,anio,ejemplares,ejemplaresPrestados,ejemplaresRestantes,autor,editorial);
-        Libro libro= new Libro(isbn, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, alta, autor, editorial);
+    public void guardarLibro(Long isbn,String titulo,Integer anio,Integer ejemplares,Integer ejemplaresPrestados,Integer ejemplaresRestantes,Boolean alta,Editorial editorial,Autor autor)throws ErrorServicio{
+          validar(isbn,titulo,anio,ejemplares,ejemplaresPrestados,ejemplaresRestantes,editorial,autor);
+        Libro libro= new Libro(isbn, titulo, anio, ejemplares, ejemplaresPrestados, ejemplaresRestantes, true,null,null);
         libroRepositorio.save(libro);
     }
     @Transactional
-    public void modificarLibro(String id,Long isbn,String titulo,Integer anio,Integer ejemplares,Integer ejemplaresPrestados,Integer ejemplaresRestantes,Boolean alta,Autor autor,Editorial editorial)throws ErrorServicio{
-           validar(isbn,titulo,anio,ejemplares,ejemplaresPrestados,ejemplaresRestantes,autor,editorial);
+    public void modificarLibro(String id,Long isbn,String titulo,Integer anio,Integer ejemplares,Integer ejemplaresPrestados,Integer ejemplaresRestantes,Boolean alta,Editorial editorial,Autor autor)throws ErrorServicio{
+           validar(isbn,titulo,anio,ejemplares,ejemplaresPrestados,ejemplaresRestantes,editorial,autor);
            Optional<Libro> resultado =libroRepositorio.findById(id);
            if (resultado.isPresent()) {
                Libro libro=resultado.get();
                libro.setIsbn(isbn);
                libro.setTitulo(titulo);
+               libro.setAnio(anio);
                libro.setEjemplares(ejemplares);
                libro.setEjemplaresPrestados(ejemplaresPrestados);
                libro.setEjemplaresRestantes(ejemplaresRestantes);
-               libro.setAutor(autor);
-               libro.setEditorial(editorial);
+               libro.setAlta(true);
+               libro.setAutor(null);
+               libro.setEditorial(null);
                libroRepositorio.save(libro);
             
         }else{
@@ -65,9 +67,9 @@ public class LibroServicio {
     }
     
     
-    public void validar(Long isbn,String titulo,Integer anio,Integer ejemplares,Integer ejemplaresPrestados,Integer ejemplaresRestantes,Autor autor,Editorial editorial)throws ErrorServicio{
+    public void validar(Long ISBN,String titulo,Integer anio,Integer ejemplares,Integer ejemplaresPrestados,Integer ejemplaresRestantes,Editorial editorial,Autor autor)throws ErrorServicio{
         
-        if(isbn ==null){
+        if(ISBN ==null ){
             throw new ErrorServicio("El valor isbn no puede ser nulo");
         }
         if(titulo==null || titulo.isEmpty()){
@@ -85,12 +87,13 @@ public class LibroServicio {
           if(ejemplaresRestantes==null || ejemplaresRestantes<0){
             throw new ErrorServicio("El número de ejemplares restantes debe ser 0 o mayor ");
         }
-          if (autor==null) {
-            throw new ErrorServicio("El libro debe tener un autor.");
-        }
-          if (editorial==null) {
-            throw new ErrorServicio("El libro debe tener una editorial.");
-        }
-        
+//          if (autor==null) {
+//            throw new ErrorServicio("El libro debe tener un autor.");
+//        }
+//          if (editorial==null) {
+//            throw new ErrorServicio("El libro debe tener una editorial.");
+//        }
+//        
     }
+
 }

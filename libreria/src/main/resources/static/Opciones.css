@@ -55,3 +55,32 @@ a:hover{
     text-decoration: none;
     color: #fff;
 }
+p{
+    color: #fff;
+    background-color: #fd310d;
+    border-color: #fd6d0d;
+    place-content: center;  
+    text-align: center;    
+}
+p.exito{
+    color: #fff;
+    background-color: #05811a;
+    border-color: #038539;
+    place-content: center;  
+    text-align: center;    
+}
+.input-group-text {
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    width: 13rem;
+  } 

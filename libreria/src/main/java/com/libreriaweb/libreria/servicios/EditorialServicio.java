@@ -29,8 +29,8 @@ public class EditorialServicio {
         if (nombre == null || nombre.isEmpty()) {
             throw new ErrorServicio("El nombre de la editorial no puede ser nulo");
         }
-        Editorial editorial = new Editorial();
-        editorial.setNombre(nombre);
+        Editorial editorial = new Editorial(nombre,true);
+    
 
         editorRepositorio.save(editorial);
     }

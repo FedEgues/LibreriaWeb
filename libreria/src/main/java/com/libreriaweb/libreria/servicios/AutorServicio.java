@@ -31,6 +31,7 @@ public class AutorServicio {
         }
 
         Autor autor = new Autor(nombre, true);
+        
         autorRepositorio.save(autor);
     }
     

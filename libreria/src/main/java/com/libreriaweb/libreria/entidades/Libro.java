@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -32,14 +32,15 @@ public class Libro implements Serializable {
     private Integer ejemplaresRestantes;
     private Boolean alta;
     @ManyToOne
-    private Autor autor;
-    @ManyToOne
     private Editorial editorial;
+    @ManyToOne
+    private Autor autor;
+ 
 
     public Libro() {
     }
 
-    public Libro(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, Boolean alta, Autor autor, Editorial editorial) {
+    public Libro(Long isbn, String titulo, Integer anio, Integer ejemplares, Integer ejemplaresPrestados, Integer ejemplaresRestantes, Boolean alta,Editorial editorial,Autor autor) {
         this.isbn = isbn;
         this.titulo = titulo;
         this.anio = anio;
@@ -47,8 +48,9 @@ public class Libro implements Serializable {
         this.ejemplaresPrestados = ejemplaresPrestados;
         this.ejemplaresRestantes = ejemplaresRestantes;
         this.alta = alta;
-        this.autor = autor;
-        this.editorial = editorial;
+        this.editorial=editorial;
+        this.autor=autor;
+       
     }
 
     public String getId() {
@@ -115,21 +117,34 @@ public class Libro implements Serializable {
         this.alta = alta;
     }
 
-    public Autor getAutor() {
-        return autor;
-    }
-
-    public void setAutor(Autor autor) {
-        this.autor = autor;
-    }
-
+    /**
+     * @return the editorial
+     */
     public Editorial getEditorial() {
         return editorial;
     }
 
+    /**
+     * @param editorial the editorial to set
+     */
     public void setEditorial(Editorial editorial) {
         this.editorial = editorial;
     }
-    
+
+    /**
+     * @return the autor
+     */
+    public Autor getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
+
     
 }
