@@ -5,13 +5,16 @@
  */
 package com.libreriaweb.libreria.controladores;
 
+
 import com.libreriaweb.libreria.entidades.Autor;
 import com.libreriaweb.libreria.entidades.Editorial;
-import com.libreriaweb.libreria.entidades.Libro;
 import com.libreriaweb.libreria.errores.ErrorServicio;
+import com.libreriaweb.libreria.repositorios.AutorRepositorio;
+import com.libreriaweb.libreria.repositorios.EditorRepositorio;
 import com.libreriaweb.libreria.servicios.AutorServicio;
 import com.libreriaweb.libreria.servicios.EditorialServicio;
 import com.libreriaweb.libreria.servicios.LibroServicio;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +41,10 @@ public class MainController {
     private EditorialServicio editorialservicio;
     @Autowired
     private LibroServicio libroservicio;
-    
+    @Autowired
+    private EditorRepositorio editorrepositorio;
+    @Autowired
+    private AutorRepositorio autorrepositorio;
     
     
     @GetMapping("/")
@@ -56,13 +62,17 @@ public class MainController {
             return "OpcionesEditorial.html";
             }
       @GetMapping("/OpcionesLibro")
-    private String OpcionesLibro(){
+    private String OpcionesLibro(ModelMap model){
+           List<Editorial> editoriales = editorrepositorio.findAll();
+           List<Autor> autores = autorrepositorio.findAll();
+           model.put("editoriales",editoriales);/*pone a disposicion la lista de editoriales para el th*/
+           model.put("autores", autores);/*pone a disposicion la lista de autores para el th*/
             return "OpcionesLibro.html";
             }
     
     @PostMapping("/ingresarAutor")
     private String ingresarAutor(ModelMap modelo,@RequestParam String nombre){
-        
+       
         try {
             
             autorservicio.guardarAutor(nombre);
@@ -72,7 +82,8 @@ public class MainController {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             return "OpcionesAutor.html";    
         }
-        return "index.html";
+        modelo.put("exito","La editorial fue ingresada con éxito");
+        return "OpcionesAutor.html";
     }
     
      @PostMapping("/ingresarEditorial")
@@ -90,26 +101,23 @@ public class MainController {
         return "OpcionesEditorial.html";
     }
       
+   @PostMapping("/ingresarLibro")
+   public String ingresarLibro(ModelMap modelo,@RequestParam Long isbn,@RequestParam String titulo,@RequestParam Integer anio,@RequestParam Integer ejemplares,String ideditorial,String  idautor){
+       try{
+           
+           libroservicio.guardarLibro(isbn, titulo, anio, ejemplares, ideditorial, idautor);
+       }catch(ErrorServicio ex){
+           modelo.put("isbn", isbn);
+           modelo.put("titulo", titulo);
+           modelo.put("anio", anio);
+           modelo.put("ejemplares", ejemplares);
+           modelo.put("error",ex.getMessage());/*para que cargue el error en la vista*/
+           return "OpcionesLibro.html";   
+       }
+       modelo.put("exito","El libro fue ingresado con éxito");
+       return "OpcionesLibro.html";
+   }
+
     
-     @PostMapping("/ingresarlibro")
-   private String ingresarlibro(ModelMap modelo,@RequestParam Long ISBN,@RequestParam String titulo,@RequestParam Integer anio,@RequestParam Integer ejemplarestotales,@RequestParam Integer ejemplaresprestados,@RequestParam Integer ejemplaresrestantes){
-       
-        try {
-            libroservicio.guardarLibro(ISBN, titulo, anio, ejemplarestotales, ejemplaresprestados,ejemplaresrestantes,true,null,null);
-        } catch (ErrorServicio ex) {
-            modelo.put("error",ex.getMessage());
-            modelo.put("ISBN",ISBN);
-            modelo.put("titulo",titulo);
-            modelo.put("anio",anio);
-            modelo.put("ejemplarestotales",ejemplarestotales);
-            modelo.put("ejemplaresprestados",ejemplaresprestados);
-            modelo.put("ejemplaresrestantes",ejemplaresrestantes);
-//            modelo.put("autor",autor);
-//            modelo.put("editorial",editorial);
-             modelo.put("error",ex.getMessage());
-            return "OpcionesLibro.html";
-        }
-                
-            return "index.html";
-            }
+    
 }

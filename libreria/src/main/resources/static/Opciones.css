@@ -59,12 +59,14 @@ p{
     color: #fff;
     background-color: #fd310d;
     border-color: #fd6d0d;
+    border-radius: 0.3cm;
     place-content: center;  
     text-align: center;    
 }
 p.exito{
     color: #fff;
     background-color: #05811a;
+    border-radius: 0.3cm;
     border-color: #038539;
     place-content: center;  
     text-align: center;    
