@@ -79,7 +79,7 @@ public class LibroServicio {
         }
 
     }
-
+   
     public void validar(Long ISBN, String titulo, Integer anio, Integer ejemplares) throws ErrorServicio {
 
         if (ISBN == null) {

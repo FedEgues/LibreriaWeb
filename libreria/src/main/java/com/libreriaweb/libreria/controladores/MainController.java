@@ -106,16 +106,20 @@ public class MainController {
        try{
            
            libroservicio.guardarLibro(isbn, titulo, anio, ejemplares, ideditorial, idautor);
-       }catch(ErrorServicio ex){
+       }catch (ErrorServicio ex){
+          
            modelo.put("isbn", isbn);
            modelo.put("titulo", titulo);
            modelo.put("anio", anio);
            modelo.put("ejemplares", ejemplares);
-           modelo.put("error",ex.getMessage());/*para que cargue el error en la vista*/
-           return "OpcionesLibro.html";   
+           modelo.put("error",ex.getMessage());
+           return "OpcionesLibro.html";
+        
        }
+       
        modelo.put("exito","El libro fue ingresado con éxito");
-       return "OpcionesLibro.html";
+       
+       return "OperacionesLibro.html";
    }
 
     

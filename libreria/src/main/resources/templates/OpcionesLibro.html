@@ -21,8 +21,10 @@ and open the template in the editor.
             <div class="card-body">
                
                 <form action="/ingresarLibro" method="POST">
+
                     <p class="error" th:if="${error !=null}" th:text="${error}"></p>
                     <p class="exito" th:if="${exito !=null}" th:text="${exito}"></p>
+                    
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label">Ingrese el ISBN del libro</label>
                       <input type="text" class="form-control" name="isbn" th:value="${isbn}">
