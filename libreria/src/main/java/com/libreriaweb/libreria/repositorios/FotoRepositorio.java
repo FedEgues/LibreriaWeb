@@ -7,11 +7,13 @@ package com.libreriaweb.libreria.repositorios;
 
 import com.libreriaweb.libreria.entidades.FotoCliente;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Federico
  */
+@Repository
 public interface FotoRepositorio extends JpaRepository<FotoCliente, String>{
     
 }

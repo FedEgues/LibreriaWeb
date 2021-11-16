@@ -43,8 +43,7 @@ public class Cliente implements Serializable {
     private Date Baja;
     @OneToOne
     private FotoCliente fotocliente;
-    @OneToMany
-    private Prestamo prestamo;
+    
     
       public Cliente() {    
     }
