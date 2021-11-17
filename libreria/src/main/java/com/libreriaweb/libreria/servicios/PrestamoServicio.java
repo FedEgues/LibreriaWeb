@@ -42,14 +42,14 @@ public class PrestamoServicio {
             prestamo.setCliente(cliente);
             prestamorepositorio.save(prestamo);
         } else {
-            throw new ErrorServicio("No se encontro el cliente especificado");
+            throw new ErrorServicio("Error no se pudo guardar el cambio");
         }
         if (resplibro.isPresent()) {
             Libro libro = resplibro.get();
             prestamo.setLibro(libro);
             prestamorepositorio.save(prestamo);
         } else {
-            throw new ErrorServicio("No se encontro el libro especificado");
+            throw new ErrorServicio("Error no se pudo guardar el cambio");
         }
         prestamo.setFechaPrestamo(new Date());
 
@@ -73,6 +73,7 @@ public class PrestamoServicio {
         }
 
     }
+    @Transactional
     public void bajaPrestamo(String idPrestamo){
          Optional<Prestamo> resultadoprestamo = prestamorepositorio.findById(idPrestamo);
         
@@ -101,7 +102,7 @@ public class PrestamoServicio {
         if (respLibro.isPresent()) {
              cliente = respLibro.get();
         }else{
-            throw new ErrorServicio("No se encontro el libro buscado.");
+            throw new ErrorServicio("No se encontro el cliente buscado.");
         }
         return cliente;
     }
