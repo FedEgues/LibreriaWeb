@@ -79,6 +79,19 @@ public class LibroServicio {
         }
 
     }
+    
+        @Transactional
+    public void dardeAlta(String id) throws ErrorServicio {
+        Optional<Libro> resultado = libroRepositorio.findById(id);
+        if (resultado.isPresent()) {
+            Libro libro = resultado.get();
+            libro.setAlta(true);
+            libroRepositorio.save(libro);
+        } else {
+            throw new ErrorServicio("No se encontro un libro para el id indicado");
+        }
+
+    }
    
     public void validar(Long ISBN, String titulo, Integer anio, Integer ejemplares) throws ErrorServicio {
 
