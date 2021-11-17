@@ -68,6 +68,7 @@ public class PrestamoServicio {
             prestamo.setFechaDevolucion(fechaDevolucion);
             prestamo.setCliente(cliente);
             prestamo.setLibro(libro);
+            prestamorepositorio.save(prestamo);
         } else {
             throw new ErrorServicio("No se encontro el prestamo buscado");
         }
