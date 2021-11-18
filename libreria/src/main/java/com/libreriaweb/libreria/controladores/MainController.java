@@ -140,7 +140,7 @@ public class MainController {
     private String ingresarCliente(ModelMap modelo,@RequestParam MultipartFile archivo,Long dni,String nombre,String apellido,String telefono,String sexo){
        
         try {
-            
+            System.out.println(sexo);
             clienteservicio.guardarCliente(archivo, dni, nombre, apellido, telefono, sexo);
         } catch (ErrorServicio ex) {
             modelo.put("nombre", nombre);
@@ -149,10 +149,12 @@ public class MainController {
             modelo.put("telefono", telefono);
             modelo.put("error",ex.getMessage());
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            return "OpcionesAutor.html";    
+            return "OpcionesCliente.html";    
         }
         modelo.put("exito","La editorial fue ingresada con éxito");
-        return "OpcionesAutor.html";
+        return "OpcionesCliente.html";
     }
+    
+    
     
 }
