@@ -35,8 +35,12 @@ public class LibroServicio {
     @Transactional
     public void guardarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, String editorial, String autor) throws ErrorServicio {
         validar(isbn, titulo, anio, ejemplares);
-        Libro libro = new Libro(isbn, titulo, anio, ejemplares, true);
-
+        Libro libro = new Libro();
+        libro.setIsbn(isbn);
+        libro.setTitulo(titulo);
+        libro.setAnio(anio);
+        libro.setEjemplares(ejemplares);
+        /*Aca se buscan los objetos segun el id que trae del foreach del th*/
         Autor autor1 = autorrepositorio.buscarPorId(autor);
         Editorial editorial1 = editorrepositorio.buscarPorId(editorial);
         

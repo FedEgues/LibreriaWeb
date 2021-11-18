@@ -116,7 +116,7 @@ public class MainController {
     }
       
    @PostMapping("/ingresarLibro")
-   public String ingresarLibro(ModelMap modelo,@RequestParam Long isbn,@RequestParam String titulo,@RequestParam Integer anio,@RequestParam Integer ejemplares,String ideditorial,String  idautor){
+   private String ingresarLibro1(ModelMap modelo,@RequestParam Long isbn,@RequestParam String titulo,@RequestParam Integer anio,@RequestParam Integer ejemplares,String ideditorial,String  idautor){
        try{
            
            libroservicio.guardarLibro(isbn, titulo, anio, ejemplares, ideditorial, idautor);
