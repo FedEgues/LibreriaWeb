@@ -5,7 +5,7 @@
  */
 package com.libreriaweb.libreria.entidades;
 
-import com.libreriaweb.libreria.Enumeracion.Sexo;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -34,8 +34,7 @@ public class Cliente implements Serializable {
     private String nombre;
     private String apellido;
     private String telefono;
-    @Enumerated(EnumType.STRING)
-    private Sexo sexo;
+    private String sexo;
     
     @Temporal(TemporalType.DATE)
     private Date Alta;
@@ -48,11 +47,11 @@ public class Cliente implements Serializable {
       public Cliente() {    
     }
 
-    public Sexo getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(Sexo sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 

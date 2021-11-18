@@ -12,6 +12,7 @@ import com.libreriaweb.libreria.errores.ErrorServicio;
 import com.libreriaweb.libreria.repositorios.AutorRepositorio;
 import com.libreriaweb.libreria.repositorios.EditorRepositorio;
 import com.libreriaweb.libreria.servicios.AutorServicio;
+import com.libreriaweb.libreria.servicios.ClienteServicio;
 import com.libreriaweb.libreria.servicios.EditorialServicio;
 import com.libreriaweb.libreria.servicios.LibroServicio;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -41,6 +43,10 @@ public class MainController {
     private EditorialServicio editorialservicio;
     @Autowired
     private LibroServicio libroservicio;
+    @Autowired
+    private ClienteServicio clienteservicio;
+    
+    
     @Autowired
     private EditorRepositorio editorrepositorio;
     @Autowired
@@ -69,6 +75,14 @@ public class MainController {
            model.put("autores", autores);/*pone a disposicion la lista de autores para el th*/
             return "OpcionesLibro.html";
             }
+     @GetMapping("/OpcionesCliente")
+    private String OpcionesCliente(){
+            return "OpcionesCliente.html";
+            }
+     
+    
+    
+    
     
     @PostMapping("/ingresarAutor")
     private String ingresarAutor(ModelMap modelo,@RequestParam String nombre){
@@ -77,7 +91,7 @@ public class MainController {
             
             autorservicio.guardarAutor(nombre);
         } catch (ErrorServicio ex) {
-            modelo.put(nombre, nombre);
+            modelo.put("nombre", nombre);
             modelo.put("error",ex.getMessage());
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             return "OpcionesAutor.html";    
@@ -93,7 +107,7 @@ public class MainController {
             editorialservicio.guardarEditorial(nombre);
             
         } catch (ErrorServicio ex) {
-            modelo.put(nombre, nombre);/*para que el formulario carge los valores*/
+            modelo.put("nombre", nombre);/*para que el formulario carge los valores*/
             modelo.put("error",ex.getMessage());/*para que cargue el error en la vista*/
             return "OpcionesEditorial.html";    
         }
@@ -122,6 +136,23 @@ public class MainController {
        return "OperacionesLibro.html";
    }
 
-    
+     @PostMapping("/ingresarCliente")
+    private String ingresarCliente(ModelMap modelo,@RequestParam MultipartFile archivo,Long dni,String nombre,String apellido,String telefono,String sexo){
+       
+        try {
+            
+            clienteservicio.guardarCliente(archivo, dni, nombre, apellido, telefono, sexo);
+        } catch (ErrorServicio ex) {
+            modelo.put("nombre", nombre);
+            modelo.put("dni", dni);
+            modelo.put("apellido", apellido);
+            modelo.put("telefono", telefono);
+            modelo.put("error",ex.getMessage());
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+            return "OpcionesAutor.html";    
+        }
+        modelo.put("exito","La editorial fue ingresada con éxito");
+        return "OpcionesAutor.html";
+    }
     
 }
