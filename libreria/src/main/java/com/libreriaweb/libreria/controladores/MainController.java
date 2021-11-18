@@ -133,7 +133,7 @@ public class MainController {
        
        modelo.put("exito","El libro fue ingresado con éxito");
        
-       return "OperacionesLibro.html";
+       return "OpcionesLibro.html";
    }
 
      @PostMapping("/ingresarCliente")
