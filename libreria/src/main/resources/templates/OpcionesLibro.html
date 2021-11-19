@@ -51,7 +51,7 @@ and open the template in the editor.
                  
                 <div>
                   <label for="exampleInputEmail1" class="form-label">Seleccione la editorial del libro</label>
-                 <select class="form-select" name="editoriales" aria-label="Default select example">
+                 <select class="form-select" name="ideditorial" aria-label="Default select example">
                   <option th:each="editorial : ${editoriales}" th:value="${editorial.id}" th:text="${editorial.nombre}"></option>
                 </select>
                 </div> 
@@ -60,7 +60,7 @@ and open the template in the editor.
 
                 <div>
                   <label for="exampleInputEmail1" class="form-label">Seleccione el autor del libro</label>
-                 <select class="form-select" name="autores" aria-label="Default select example">
+                 <select class="form-select" name="idautor" aria-label="Default select example">
                   <option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nombre}"></option>
                   </select>
                 </div> 

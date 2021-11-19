@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 public class LibroServicio {
 
     @Autowired
-    LibroRepositorio libroRepositorio;
+    LibroRepositorio librorepositorio;
     @Autowired
     EditorRepositorio editorrepositorio;
     @Autowired
@@ -47,13 +47,13 @@ public class LibroServicio {
         libro.setAutor(autor1);
         libro.setEditorial(editorial1);
         
-        libroRepositorio.save(libro);
+        librorepositorio.save(libro);
     }
 
     @Transactional
     public void modificarLibro(String id, Long isbn, String titulo, Integer anio, Integer ejemplares, Boolean alta, Editorial editorial, Autor autor) throws ErrorServicio {
         validar(isbn, titulo, anio, ejemplares);
-        Optional<Libro> resultado = libroRepositorio.findById(id);
+        Optional<Libro> resultado = librorepositorio.findById(id);
         if (resultado.isPresent()) {
             Libro libro = resultado.get();
             libro.setIsbn(isbn);
@@ -64,7 +64,7 @@ public class LibroServicio {
             libro.setAlta(true);
             libro.setAutor(null);
             libro.setEditorial(null);
-            libroRepositorio.save(libro);
+            librorepositorio.save(libro);
 
         } else {
             throw new ErrorServicio("No se encontro un libro para el id indicado");
@@ -73,11 +73,11 @@ public class LibroServicio {
 
     @Transactional
     public void darDeBajar(String id) throws ErrorServicio {
-        Optional<Libro> resultado = libroRepositorio.findById(id);
+        Optional<Libro> resultado = librorepositorio.findById(id);
         if (resultado.isPresent()) {
             Libro libro = resultado.get();
             libro.setAlta(false);
-            libroRepositorio.save(libro);
+            librorepositorio.save(libro);
         } else {
             throw new ErrorServicio("No se encontro un libro para el id indicado");
         }
@@ -86,11 +86,11 @@ public class LibroServicio {
     
         @Transactional
     public void dardeAlta(String id) throws ErrorServicio {
-        Optional<Libro> resultado = libroRepositorio.findById(id);
+        Optional<Libro> resultado = librorepositorio.findById(id);
         if (resultado.isPresent()) {
             Libro libro = resultado.get();
             libro.setAlta(true);
-            libroRepositorio.save(libro);
+            librorepositorio.save(libro);
         } else {
             throw new ErrorServicio("No se encontro un libro para el id indicado");
         }

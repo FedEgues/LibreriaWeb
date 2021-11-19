@@ -7,14 +7,20 @@ package com.libreriaweb.libreria.controladores;
 
 
 import com.libreriaweb.libreria.entidades.Autor;
+import com.libreriaweb.libreria.entidades.Cliente;
 import com.libreriaweb.libreria.entidades.Editorial;
+import com.libreriaweb.libreria.entidades.Libro;
 import com.libreriaweb.libreria.errores.ErrorServicio;
 import com.libreriaweb.libreria.repositorios.AutorRepositorio;
+import com.libreriaweb.libreria.repositorios.ClienteRepositorio;
 import com.libreriaweb.libreria.repositorios.EditorRepositorio;
+import com.libreriaweb.libreria.repositorios.LibroRepositorio;
+import com.libreriaweb.libreria.repositorios.PrestamoRepositorio;
 import com.libreriaweb.libreria.servicios.AutorServicio;
 import com.libreriaweb.libreria.servicios.ClienteServicio;
 import com.libreriaweb.libreria.servicios.EditorialServicio;
 import com.libreriaweb.libreria.servicios.LibroServicio;
+import com.libreriaweb.libreria.servicios.PrestamoServicio;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,13 +51,19 @@ public class MainController {
     private LibroServicio libroservicio;
     @Autowired
     private ClienteServicio clienteservicio;
-    
+    @Autowired
+    private PrestamoServicio prestamoservicio;
     
     @Autowired
     private EditorRepositorio editorrepositorio;
     @Autowired
     private AutorRepositorio autorrepositorio;
-    
+    @Autowired
+    private PrestamoRepositorio prestamorepositorio;
+    @Autowired
+    private LibroRepositorio librorepositorio;
+    @Autowired
+    private ClienteRepositorio clienterepositorio;
     
     @GetMapping("/")
     public String index(){
@@ -80,6 +92,14 @@ public class MainController {
             return "OpcionesCliente.html";
             }
      
+      @GetMapping("/OpcionesPrestamo")
+    private String OpcionesPrestamo(ModelMap model){
+           List<Libro> libros = librorepositorio.findAll();
+           List<Cliente> clientes = clienterepositorio.findAll();
+           model.put("clientes",clientes);
+           model.put("libros",libros);
+           return "OpcionesPrestamo.html";
+            }
     
     
     
@@ -157,6 +177,18 @@ public class MainController {
         return "OpcionesCliente.html";
     }
     
-    
+    @PostMapping("/ingresarPrestamo")
+    private String ingresarPrestamo(ModelMap model,String idlibro,String idcliente){
+        
+        
+        try{
+           prestamoservicio.crearPrestamo(idlibro, idcliente);
+        }catch(ErrorServicio ex){
+            model.put("error",ex.getMessage());
+            return "OpcionesPrestamo.html";
+        }
+        model.put("exito","El prestamo fue creado con éxito");
+        return "OpcionesPrestamo.html";
+    }
     
 }

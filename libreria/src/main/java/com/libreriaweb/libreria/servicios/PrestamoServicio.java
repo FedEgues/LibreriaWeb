@@ -16,11 +16,13 @@ import java.util.Date;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Federico
  */
+@Service
 public class PrestamoServicio {
 
     @Autowired
@@ -34,24 +36,14 @@ public class PrestamoServicio {
     public void crearPrestamo(String idlibro, String idcliente) throws ErrorServicio {
         Prestamo prestamo = new Prestamo();
 
-        Optional<Cliente> respcliente = clienterepositorio.findById(idcliente);
-        Optional<Libro> resplibro = librorepositorio.findById(idlibro);
-
-        if (respcliente.isPresent()) {
-            Cliente cliente = respcliente.get();
-            prestamo.setCliente(cliente);
-            prestamorepositorio.save(prestamo);
-        } else {
-            throw new ErrorServicio("Error no se pudo guardar el cambio");
-        }
-        if (resplibro.isPresent()) {
-            Libro libro = resplibro.get();
-            prestamo.setLibro(libro);
-            prestamorepositorio.save(prestamo);
-        } else {
-            throw new ErrorServicio("Error no se pudo guardar el cambio");
-        }
-        prestamo.setFechaPrestamo(new Date());
+       Cliente cliente=validacionCliente(idcliente);
+       Libro libro =validacionLibro(idlibro);
+       
+       prestamo.setCliente(cliente);
+       prestamo.setLibro(libro);
+       prestamo.setFechaPrestamo(new Date());
+       
+       prestamorepositorio.save(prestamo);
 
     }
 
