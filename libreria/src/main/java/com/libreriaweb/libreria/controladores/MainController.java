@@ -116,17 +116,19 @@ public class MainController {
     }
       
    @PostMapping("/ingresarLibro")
-   private String ingresarLibro1(ModelMap modelo,@RequestParam Long isbn,@RequestParam String titulo,@RequestParam Integer anio,@RequestParam Integer ejemplares,String ideditorial,String  idautor){
+   public String ingresarLibro1(ModelMap modelo,Long isbn,String titulo, Integer anio, Integer ejemplares,String ideditorial,String  idautor){
+      
        try{
-           
-           libroservicio.guardarLibro(isbn, titulo, anio, ejemplares, ideditorial, idautor);
-       }catch (ErrorServicio ex){
-          
+           System.out.println("Se rompio antes de libroservicio");
+             libroservicio.guardarLibro(isbn, titulo, anio, ejemplares, ideditorial, idautor);
+       }catch (ErrorServicio ex) {
+           System.out.println("Se rompio en el error");
            modelo.put("isbn", isbn);
            modelo.put("titulo", titulo);
            modelo.put("anio", anio);
            modelo.put("ejemplares", ejemplares);
            modelo.put("error",ex.getMessage());
+           System.out.println("Se rompio despues del put");
            return "OpcionesLibro.html";
         
        }
@@ -140,7 +142,7 @@ public class MainController {
     private String ingresarCliente(ModelMap modelo,@RequestParam MultipartFile archivo,Long dni,String nombre,String apellido,String telefono,String sexo){
        
         try {
-            System.out.println(sexo);
+           
             clienteservicio.guardarCliente(archivo, dni, nombre, apellido, telefono, sexo);
         } catch (ErrorServicio ex) {
             modelo.put("nombre", nombre);
@@ -148,10 +150,10 @@ public class MainController {
             modelo.put("apellido", apellido);
             modelo.put("telefono", telefono);
             modelo.put("error",ex.getMessage());
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+           
             return "OpcionesCliente.html";    
         }
-        modelo.put("exito","La editorial fue ingresada con éxito");
+        modelo.put("exito","El cliente fue ingresada con éxito");
         return "OpcionesCliente.html";
     }
     
