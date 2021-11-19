@@ -22,7 +22,7 @@ public class EditorialServicio {
 
     @Autowired
     private EditorRepositorio editorRepositorio;
-    
+    /*CRUD*/
     @Transactional
     public void guardarEditorial(String nombre) throws ErrorServicio {
 

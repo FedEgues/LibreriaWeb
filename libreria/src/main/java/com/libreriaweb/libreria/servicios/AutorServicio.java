@@ -23,7 +23,7 @@ public class AutorServicio {
 
     @Autowired
     private AutorRepositorio autorRepositorio;
-
+    /*CRUD*/
     @Transactional
     public void guardarAutor(String nombre) throws ErrorServicio {
         if (nombre == null || nombre.isEmpty()) {

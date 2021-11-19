@@ -31,7 +31,7 @@ public class LibroServicio {
     @Autowired
     AutorRepositorio autorrepositorio;
 
-    /*CRED*/
+    /*CRUD*/
     @Transactional
     public void guardarLibro(Long isbn, String titulo, Integer anio, Integer ejemplares, String editorial, String autor) throws ErrorServicio {
         validar(isbn, titulo, anio, ejemplares);
@@ -40,6 +40,7 @@ public class LibroServicio {
         libro.setTitulo(titulo);
         libro.setAnio(anio);
         libro.setEjemplares(ejemplares);
+        libro.setAlta(true);
         /*Aca se buscan los objetos segun el id que trae del foreach del th*/
         Autor autor1 = autorrepositorio.buscarPorId(autor);
         Editorial editorial1 = editorrepositorio.buscarPorId(editorial);

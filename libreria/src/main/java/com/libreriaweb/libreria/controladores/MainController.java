@@ -101,6 +101,13 @@ public class MainController {
            return "OpcionesPrestamo.html";
             }
     
+     @GetMapping("/verAutores")
+    private String verAutores(ModelMap model){
+           List<Autor> autores = autorrepositorio.findAll();
+           model.put("autores",autores);
+           return "verAutores.html";
+            }
+    
     
     
     
@@ -116,7 +123,7 @@ public class MainController {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
             return "OpcionesAutor.html";    
         }
-        modelo.put("exito","La editorial fue ingresada con éxito");
+        modelo.put("exito","El editor fue ingresado con éxito");
         return "OpcionesAutor.html";
     }
     

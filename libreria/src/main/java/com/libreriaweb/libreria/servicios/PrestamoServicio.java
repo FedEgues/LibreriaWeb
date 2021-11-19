@@ -31,7 +31,7 @@ public class PrestamoServicio {
     LibroRepositorio librorepositorio;
     @Autowired
     ClienteRepositorio clienterepositorio;
-
+    /*CRUD*/
     @Transactional
     public void crearPrestamo(String idlibro, String idcliente) throws ErrorServicio {
         Prestamo prestamo = new Prestamo();
