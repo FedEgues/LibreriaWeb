@@ -155,14 +155,15 @@ public class MainController {
            modelo.put("anio", anio);
            modelo.put("ejemplares", ejemplares);
            modelo.put("error",ex.getMessage());
-           System.out.println("Se rompio despues del put");
-           return "OpcionesLibro.html";
+          return "OpcionesLibro.html";
+           
         
        }
        
        modelo.put("exito","El libro fue ingresado con éxito");
-       
        return "OpcionesLibro.html";
+//       return "redirect:/OpcionesLibro";
+       
    }
 
      @PostMapping("/ingresarCliente")
