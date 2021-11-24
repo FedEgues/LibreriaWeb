@@ -16,11 +16,13 @@ import com.libreriaweb.libreria.repositorios.ClienteRepositorio;
 import com.libreriaweb.libreria.repositorios.EditorRepositorio;
 import com.libreriaweb.libreria.repositorios.LibroRepositorio;
 import com.libreriaweb.libreria.repositorios.PrestamoRepositorio;
+import com.libreriaweb.libreria.repositorios.UsuarioRepositorio;
 import com.libreriaweb.libreria.servicios.AutorServicio;
 import com.libreriaweb.libreria.servicios.ClienteServicio;
 import com.libreriaweb.libreria.servicios.EditorialServicio;
 import com.libreriaweb.libreria.servicios.LibroServicio;
 import com.libreriaweb.libreria.servicios.PrestamoServicio;
+import com.libreriaweb.libreria.servicios.UsuarioServicio;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +55,9 @@ public class MainController {
     private ClienteServicio clienteservicio;
     @Autowired
     private PrestamoServicio prestamoservicio;
+    @Autowired
+    private UsuarioServicio usuarioservicio;
+    
     
     @Autowired
     private EditorRepositorio editorrepositorio;
@@ -64,6 +69,10 @@ public class MainController {
     private LibroRepositorio librorepositorio;
     @Autowired
     private ClienteRepositorio clienterepositorio;
+    @Autowired
+    private UsuarioRepositorio usuariorepositorio;
+    
+    /*GETMAPPING*/
     
     @GetMapping("/")
     public String index(){
@@ -108,9 +117,20 @@ public class MainController {
            return "verAutores.html";
             }
     
+     @GetMapping("/login")
+    private String login(){
+            return "login.html";
+            }
     
     
     
+    
+    
+    
+    
+    
+    
+    /*POSTMAPPING*/   
     @PostMapping("/ingresarAutor")
     private String ingresarAutor(ModelMap modelo,@RequestParam String nombre){
        
@@ -198,5 +218,21 @@ public class MainController {
         model.put("exito","El prestamo fue creado con éxito");
         return "OpcionesPrestamo.html";
     }
+    
+    @PostMapping("/login")
+    private String ingresarUsuario(ModelMap model,String nombre,String apellido,String clave1,String clave2,String mail){
+        
+        try{
+            usuarioservicio.guardarUsuario(nombre, apellido, clave1, clave2, mail);
+        }catch(ErrorServicio ex){
+            model.put("nombre",nombre);
+            model.put("apellido",apellido);
+            model.put("mail",mail);
+            model.put("error",ex.getMessage());
+        }
+        model.put("exito","El usuario fue creado exitosamente");
+        return "/";
+    }
+            
     
 }

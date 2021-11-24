@@ -37,7 +37,7 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter{
                     .loginProcessingUrl("/logincheck")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .defaultSuccessUrl("/inicio")/*index*/
+                    .defaultSuccessUrl("/")/*index*/
                     .permitAll()
                 .and().logout()
                     .logoutSuccessUrl("/logout")/*hay que crear htmls*/
@@ -45,7 +45,7 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter{
                 
                 
                     .permitAll();
-/*http.csrf().disable(); por si el servidor se pone terco*/
+         http.csrf().disable(); 
 
     
     
