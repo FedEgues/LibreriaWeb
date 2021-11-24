@@ -45,12 +45,33 @@ public class UsuarioServicio implements UserDetailsService
         String encriptada = new BCryptPasswordEncoder().encode(clave);
         usuario.setClave(encriptada);
 
-       ;
+       
         
         usuario.setAlta(new Date());
         usuario.setMail(mail);
         usuariorepositorio.save(usuario);
     }
+    
+     @Transactional
+    public void modificarUsuario(String nombre,String apellido,String clave,String mail){
+        
+        
+        Usuario usuario=usuariorepositorio.buscarPorMail(mail);
+        
+        usuario.setNombre(nombre);
+        usuario.setApellido(apellido);
+        
+        String encriptada = new BCryptPasswordEncoder().encode(clave);
+        usuario.setClave(encriptada);
+
+       
+        
+        usuario.setAlta(new Date());
+        usuario.setMail(mail);
+        usuariorepositorio.save(usuario);
+    }
+    
+     
 
     @Override
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {

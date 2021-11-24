@@ -45,7 +45,7 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter{
                 
                 
                     .permitAll();
-/*http.csrf().disable(); por si el servidor se pone terco*/
+                http.csrf().disable();
 
     
     
