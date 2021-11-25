@@ -5,7 +5,6 @@
  */
 package com.libreriaweb.libreria.controladores;
 
-
 import com.libreriaweb.libreria.entidades.Autor;
 import com.libreriaweb.libreria.entidades.Cliente;
 import com.libreriaweb.libreria.entidades.Editorial;
@@ -16,11 +15,13 @@ import com.libreriaweb.libreria.repositorios.ClienteRepositorio;
 import com.libreriaweb.libreria.repositorios.EditorRepositorio;
 import com.libreriaweb.libreria.repositorios.LibroRepositorio;
 import com.libreriaweb.libreria.repositorios.PrestamoRepositorio;
+import com.libreriaweb.libreria.repositorios.UsuarioRepositorio;
 import com.libreriaweb.libreria.servicios.AutorServicio;
 import com.libreriaweb.libreria.servicios.ClienteServicio;
 import com.libreriaweb.libreria.servicios.EditorialServicio;
 import com.libreriaweb.libreria.servicios.LibroServicio;
 import com.libreriaweb.libreria.servicios.PrestamoServicio;
+import com.libreriaweb.libreria.servicios.UsuarioServicio;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +34,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 /**
  *
  * @author ericec
@@ -41,8 +41,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/")
 public class MainController {
-    
-    
+
     @Autowired
     private AutorServicio autorservicio;
     @Autowired
@@ -53,7 +52,9 @@ public class MainController {
     private ClienteServicio clienteservicio;
     @Autowired
     private PrestamoServicio prestamoservicio;
-    
+    @Autowired
+    private UsuarioServicio usuarioservicio;
+
     @Autowired
     private EditorRepositorio editorrepositorio;
     @Autowired
@@ -64,142 +65,171 @@ public class MainController {
     private LibroRepositorio librorepositorio;
     @Autowired
     private ClienteRepositorio clienterepositorio;
-    
+    @Autowired
+    private UsuarioRepositorio usuariorepositorio;
+
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "index";
-    } 
+    }
+
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login.html";
-    } 
+    }
+
     @GetMapping("/OpcionesAutor")
-    private String OpcionesAutor(){
-            return "OpcionesAutor.html";
-            }   
-    
-      @GetMapping("/OpcionesEditorial")
-    private String OpcionesEditorial(){
-            return "OpcionesEditorial.html";
-            }
-      @GetMapping("/OpcionesLibro")
-    private String OpcionesLibro(ModelMap model){
-           List<Editorial> editoriales = editorrepositorio.findAll();
-           List<Autor> autores = autorrepositorio.findAll();
-           model.put("editoriales",editoriales);/*pone a disposicion la lista de editoriales para el th*/
-           model.put("autores", autores);/*pone a disposicion la lista de autores para el th*/
-            return "OpcionesLibro.html";
-            }
-     @GetMapping("/OpcionesCliente")
-    private String OpcionesCliente(){
-            return "OpcionesCliente.html";
-            }
-     
-      @GetMapping("/OpcionesPrestamo")
-    private String OpcionesPrestamo(ModelMap model){
-           List<Libro> libros = librorepositorio.findAll();
-           List<Cliente> clientes = clienterepositorio.findAll();
-           model.put("clientes",clientes);
-           model.put("libros",libros);
-           return "OpcionesPrestamo.html";
-            }
-    
-     @GetMapping("/verAutores")
-    private String verAutores(ModelMap model){
-           List<Autor> autores = autorrepositorio.findAll();
-           model.put("autores",autores);
-           return "verAutores.html";
-            }
-    
-    
-    
-    
+    private String OpcionesAutor() {
+        return "OpcionesAutor.html";
+    }
+
+    @GetMapping("/OpcionesEditorial")
+    private String OpcionesEditorial() {
+        return "OpcionesEditorial.html";
+    }
+
+    @GetMapping("/OpcionesLibro")
+    private String OpcionesLibro(ModelMap model) {
+        List<Editorial> editoriales = editorrepositorio.findAll();
+        List<Autor> autores = autorrepositorio.findAll();
+        model.put("editoriales", editoriales);/*pone a disposicion la lista de editoriales para el th*/
+        model.put("autores", autores);/*pone a disposicion la lista de autores para el th*/
+        return "OpcionesLibro.html";
+    }
+
+    @GetMapping("/OpcionesCliente")
+    private String OpcionesCliente() {
+        return "OpcionesCliente.html";
+    }
+
+    @GetMapping("/OpcionesPrestamo")
+    private String OpcionesPrestamo(ModelMap model) {
+        List<Libro> libros = librorepositorio.findAll();
+        List<Cliente> clientes = clienterepositorio.findAll();
+        model.put("clientes", clientes);
+        model.put("libros", libros);
+        return "OpcionesPrestamo.html";
+    }
+
+    @GetMapping("/verAutores")
+    private String verAutores(ModelMap model) {
+        List<Autor> autores = autorrepositorio.findAll();
+        model.put("autores", autores);
+        return "verAutores.html";
+    }
+
     @PostMapping("/ingresarAutor")
-    private String ingresarAutor(ModelMap modelo,@RequestParam String nombre){
-       
+    private String ingresarAutor(ModelMap modelo, @RequestParam String nombre) {
+
         try {
-            
+
             autorservicio.guardarAutor(nombre);
         } catch (ErrorServicio ex) {
             modelo.put("nombre", nombre);
-            modelo.put("error",ex.getMessage());
+            modelo.put("error", ex.getMessage());
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-            return "OpcionesAutor.html";    
+            return "OpcionesAutor.html";
         }
-        modelo.put("exito","El editor fue ingresado con éxito");
+        modelo.put("exito", "El editor fue ingresado con éxito");
         return "OpcionesAutor.html";
     }
-    
-     @PostMapping("/ingresarEditorial")
-    private String ingresarEditorial(ModelMap modelo,@RequestParam String nombre){
+
+    @PostMapping("/ingresarEditorial")
+    private String ingresarEditorial(ModelMap modelo, @RequestParam String nombre) {
         /*Se utiliza ModelMap modelo, para interactuar con la vista a traves de thymeleaf*/
         try {
             editorialservicio.guardarEditorial(nombre);
-            
+
         } catch (ErrorServicio ex) {
             modelo.put("nombre", nombre);/*para que el formulario carge los valores*/
-            modelo.put("error",ex.getMessage());/*para que cargue el error en la vista*/
-            return "OpcionesEditorial.html";    
+            modelo.put("error", ex.getMessage());/*para que cargue el error en la vista*/
+            return "OpcionesEditorial.html";
         }
-        modelo.put("exito","La editorial fue ingresada con éxito");
+        modelo.put("exito", "La editorial fue ingresada con éxito");
         return "OpcionesEditorial.html";
     }
-      
-   @PostMapping("/ingresarLibro")
-   public String ingresarLibro1(ModelMap modelo,Long isbn,String titulo, Integer anio, Integer ejemplares,String ideditorial,String  idautor){
-      
-       try{
-           System.out.println("Se rompio antes de libroservicio");
-             libroservicio.guardarLibro(isbn, titulo, anio, ejemplares, ideditorial, idautor);
-       }catch (ErrorServicio ex) {
-           System.out.println("Se rompio en el error");
-           modelo.put("isbn", isbn);
-           modelo.put("titulo", titulo);
-           modelo.put("anio", anio);
-           modelo.put("ejemplares", ejemplares);
-           modelo.put("error",ex.getMessage());
-          return "OpcionesLibro.html";
-           
-        
-       }
-       
-       modelo.put("exito","El libro fue ingresado con éxito");
-       return "OpcionesLibro.html";
-//       return "redirect:/OpcionesLibro";
-       
-   }
 
-     @PostMapping("/ingresarCliente")
-    private String ingresarCliente(ModelMap modelo,@RequestParam MultipartFile archivo,Long dni,String nombre,String apellido,String telefono,String sexo){
-       
+    @PostMapping("/ingresarLibro")
+    public String ingresarLibro1(ModelMap modelo, Long isbn, String titulo, Integer anio, Integer ejemplares, String ideditorial, String idautor) {
+
         try {
-           
+            System.out.println("Se rompio antes de libroservicio");
+            libroservicio.guardarLibro(isbn, titulo, anio, ejemplares, ideditorial, idautor);
+        } catch (ErrorServicio ex) {
+            List<Editorial> editoriales = editorrepositorio.findAll();
+            List<Autor> autores = autorrepositorio.findAll();
+            modelo.put("editoriales", editoriales);
+            modelo.put("autores", autores);
+            System.out.println("Se rompio en el error");
+            modelo.put("isbn", isbn);
+            modelo.put("titulo", titulo);
+            modelo.put("anio", anio);
+            modelo.put("ejemplares", ejemplares);
+            modelo.put("error", ex.getMessage());
+            return "OpcionesLibro.html";
+
+        }
+        List<Editorial> editoriales = editorrepositorio.findAll();
+        List<Autor> autores = autorrepositorio.findAll();
+        modelo.put("editoriales", editoriales);
+        modelo.put("autores", autores);
+
+        modelo.put("exito", "El libro fue ingresado con éxito");
+        return "OpcionesLibro.html";
+//       return "redirect:/OpcionesLibro";
+
+    }
+
+    @PostMapping("/ingresarCliente")
+    private String ingresarCliente(ModelMap modelo, @RequestParam MultipartFile archivo, Long dni, String nombre, String apellido, String telefono, String sexo) {
+
+        try {
+
             clienteservicio.guardarCliente(archivo, dni, nombre, apellido, telefono, sexo);
         } catch (ErrorServicio ex) {
             modelo.put("nombre", nombre);
             modelo.put("dni", dni);
             modelo.put("apellido", apellido);
             modelo.put("telefono", telefono);
-            modelo.put("error",ex.getMessage());
-           
-            return "OpcionesCliente.html";    
+            modelo.put("error", ex.getMessage());
+
+            return "OpcionesCliente.html";
         }
-        modelo.put("exito","El cliente fue ingresada con éxito");
+        modelo.put("exito", "El cliente fue ingresada con éxito");
         return "OpcionesCliente.html";
     }
-    
+
     @PostMapping("/ingresarPrestamo")
-    private String ingresarPrestamo(ModelMap model,String idlibro,String idcliente){
-        
-        
-        try{
-           prestamoservicio.crearPrestamo(idlibro, idcliente);
-        }catch(ErrorServicio ex){
-            model.put("error",ex.getMessage());
+    private String ingresarPrestamo(ModelMap model, String idlibro, String idcliente) {
+
+        try {
+            prestamoservicio.crearPrestamo(idlibro, idcliente);
+        } catch (ErrorServicio ex) {
+            model.put("error", ex.getMessage());
             return "OpcionesPrestamo.html";
         }
-        model.put("exito","El prestamo fue creado con éxito");
+        List<Libro> libros = librorepositorio.findAll();
+        List<Cliente> clientes = clienterepositorio.findAll();
+        model.put("clientes", clientes);
+        model.put("libros", libros);
+        model.put("exito", "El prestamo fue creado con éxito");
         return "OpcionesPrestamo.html";
     }
-    
+
+    @PostMapping("/ingresarUsuario")
+    private String ingresarUsuario(ModelMap modelo, String nombre, String apellido, String clave) {
+
+        try {
+            usuarioservicio.guardarUsuario(nombre, apellido, clave, clave);
+        } catch (ErrorServicio ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            return "login.html";
+        }
+        modelo.put("exito", "El ingreso del usuario fue exitoso.");
+        return "login.html";
+
+    }
+
 }

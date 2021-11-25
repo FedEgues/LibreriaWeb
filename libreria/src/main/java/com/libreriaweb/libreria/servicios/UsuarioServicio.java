@@ -6,6 +6,7 @@
 package com.libreriaweb.libreria.servicios;
 
 import com.libreriaweb.libreria.entidades.Usuario;
+import com.libreriaweb.libreria.errores.ErrorServicio;
 import com.libreriaweb.libreria.repositorios.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,9 +37,12 @@ public class UsuarioServicio implements UserDetailsService
     UsuarioRepositorio usuariorepositorio;
     
     @Transactional
-    public void guardarUsuario(String nombre,String apellido,String clave,String mail){
+    public void guardarUsuario(String nombre,String apellido,String clave,String mail)throws ErrorServicio{
         Usuario usuario=new Usuario();
-        
+        if(nombre ==null || nombre.isEmpty() || apellido ==null || clave==null  || apellido.isEmpty() || clave.isEmpty() || mail.isEmpty()){
+            throw new ErrorServicio("Ninguno de los valores puede ser nulo");
+        }
+                
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         
