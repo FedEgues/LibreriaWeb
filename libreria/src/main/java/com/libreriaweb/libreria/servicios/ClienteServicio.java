@@ -61,6 +61,10 @@ public class ClienteServicio {
             cliente.setDni(dni);
             cliente.setNombre(nombre);
             cliente.setApellido(apellido);
+              
+            
+               
+            cliente.setApellido(apellido);
             cliente.setTelefono(telefono);
             cliente.setSexo(sexo);
 
@@ -114,6 +118,7 @@ public class ClienteServicio {
         if (apellido == null || apellido.isEmpty()) {
             throw new ErrorServicio("El apellido no puede estar vacio.");
         }
+      
         if (telefono == null || telefono.isEmpty()) {
             throw new ErrorServicio("El telefono no puede estar vacio o ser nulo.");
         }
