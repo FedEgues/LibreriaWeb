@@ -81,17 +81,27 @@ public class MainController {
     public String registro() {
         return "registro.html";
     }
-
+/*GETMAPPING AUTOR*/
     @GetMapping("/OpcionesAutor")
     private String OpcionesAutor() {
         return "OpcionesAutor.html";
     }
+    
+     @GetMapping("/verAutores")
+    private String verAutores(ModelMap model) {
+        List<Autor> autores = autorrepositorio.findAll();
+        model.put("autores", autores);
+       
+        return "verAutores.html";
+    }
 
+
+/*GETMAPPING EDITORIAL*/
     @GetMapping("/OpcionesEditorial")
     private String OpcionesEditorial() {
         return "OpcionesEditorial.html";
     }
-
+/*GETMAPPING LIBRO*/
     @GetMapping("/OpcionesLibro")
     private String OpcionesLibro(ModelMap model) {
         List<Editorial> editoriales = editorrepositorio.findAll();
@@ -100,12 +110,12 @@ public class MainController {
         model.put("autores", autores);/*pone a disposicion la lista de autores para el th*/
         return "OpcionesLibro.html";
     }
-
+/*GETMAPPING CLIENTE*/
     @GetMapping("/OpcionesCliente")
     private String OpcionesCliente() {
         return "OpcionesCliente.html";
     }
-
+/*GETMAPPING PRESTAMO*/
     @GetMapping("/OpcionesPrestamo")
     private String OpcionesPrestamo(ModelMap model) {
         List<Libro> libros = librorepositorio.findAll();
@@ -115,13 +125,12 @@ public class MainController {
         return "OpcionesPrestamo.html";
     }
 
-    @GetMapping("/verAutores")
-    private String verAutores(ModelMap model) {
-        List<Autor> autores = autorrepositorio.findAll();
-        model.put("autores", autores);
-        return "verAutores.html";
-    }
+   
+    
+    /*ACA COMIENZAN LOS POSTMAPPING*/
 
+    
+     /*AUTOR*/
     @PostMapping("/ingresarAutor")
     private String ingresarAutor(ModelMap modelo, @RequestParam String nombre) {
 
@@ -137,7 +146,8 @@ public class MainController {
         modelo.put("exito", "El editor fue ingresado con éxito");
         return "OpcionesAutor.html";
     }
-
+ 
+    /*EDITORIAL*/
     @PostMapping("/ingresarEditorial")
     private String ingresarEditorial(ModelMap modelo, @RequestParam String nombre) {
         /*Se utiliza ModelMap modelo, para interactuar con la vista a traves de thymeleaf*/
@@ -152,7 +162,7 @@ public class MainController {
         modelo.put("exito", "La editorial fue ingresada con éxito");
         return "OpcionesEditorial.html";
     }
-
+    /*LIBRO*/ 
     @PostMapping("/ingresarLibro")
     public String ingresarLibro1(ModelMap modelo, Long isbn, String titulo, Integer anio, Integer ejemplares, String ideditorial, String idautor) {
 
@@ -183,7 +193,7 @@ public class MainController {
 //       return "redirect:/OpcionesLibro";
 
     }
-
+   /*CLIENTE*/
     @PostMapping("/ingresarCliente")
     private String ingresarCliente(ModelMap modelo, @RequestParam MultipartFile archivo, Long dni, String nombre, String apellido, String telefono, String sexo) {
 
@@ -202,7 +212,7 @@ public class MainController {
         modelo.put("exito", "El cliente fue ingresada con éxito");
         return "OpcionesCliente.html";
     }
-
+    /*PRESTAMO*/
     @PostMapping("/ingresarPrestamo")
     private String ingresarPrestamo(ModelMap model, String idlibro, String idcliente) {
 
@@ -219,7 +229,7 @@ public class MainController {
         model.put("exito", "El prestamo fue creado con éxito");
         return "OpcionesPrestamo.html";
     }
-
+    /*USUARIO*/
     @PostMapping("/registrarUsuario")
     private String ingresarUsuario(ModelMap modelo, String nombre, String apellido, String clave,String mail) {
 
