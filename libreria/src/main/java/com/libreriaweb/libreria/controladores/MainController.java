@@ -77,6 +77,10 @@ public class MainController {
     public String login() {
         return "login.html";
     }
+      @GetMapping("/registro")
+    public String registro() {
+        return "registro.html";
+    }
 
     @GetMapping("/OpcionesAutor")
     private String OpcionesAutor() {
@@ -207,7 +211,7 @@ public class MainController {
         } catch (ErrorServicio ex) {
             model.put("error", ex.getMessage());
             return "OpcionesPrestamo.html";
-        }
+        } 
         List<Libro> libros = librorepositorio.findAll();
         List<Cliente> clientes = clienterepositorio.findAll();
         model.put("clientes", clientes);
@@ -216,19 +220,19 @@ public class MainController {
         return "OpcionesPrestamo.html";
     }
 
-    @PostMapping("/ingresarUsuario")
-    private String ingresarUsuario(ModelMap modelo, String nombre, String apellido, String clave) {
+    @PostMapping("/registrarUsuario")
+    private String ingresarUsuario(ModelMap modelo, String nombre, String apellido, String clave,String mail) {
 
         try {
-            usuarioservicio.guardarUsuario(nombre, apellido, clave, clave);
+            usuarioservicio.guardarUsuario(nombre, apellido, clave,mail);
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
-            return "login.html";
+            return "registro.html";
         }
         modelo.put("exito", "El ingreso del usuario fue exitoso.");
-        return "login.html";
+        return "registro.html";
 
     }
 

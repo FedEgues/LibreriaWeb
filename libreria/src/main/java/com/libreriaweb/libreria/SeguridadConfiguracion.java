@@ -1,4 +1,4 @@
-
+ 
 package com.libreriaweb.libreria;
 
 import com.libreriaweb.libreria.servicios.UsuarioServicio;
@@ -24,7 +24,8 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter{
     public UsuarioServicio usuarioservice;
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService( usuarioservice).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService( usuarioservice)
+            .passwordEncoder(new BCryptPasswordEncoder());
     }
    @Override
     protected void configure(HttpSecurity http) throws Exception{
@@ -34,10 +35,10 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter{
                 .permitAll()
             .and().formLogin()
                 .loginPage("/login")
-                    .loginProcessingUrl("/logincheck")
-                    .usernameParameter("username")
-                    .passwordParameter("password")
-                    .defaultSuccessUrl("/inicio")/*index*/
+                    .loginProcessingUrl("/ingresarUsuario")
+                    .usernameParameter("mail")
+                    .passwordParameter("clave")
+                    .defaultSuccessUrl("/OpcionesAutor")/*index*/
                     .permitAll()
                 .and().logout()
                     .logoutSuccessUrl("/logout")/*hay que crear htmls*/
