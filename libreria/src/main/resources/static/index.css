@@ -34,8 +34,14 @@ a{
     color: black;
 }
 a:hover{
-    color:greenyellow;
+    color:rgb(36, 94, 202);
 }
 .dropdown-toggle{
     margin: 6px;
+}
+#botonRegLog{
+   
+    width: 20%;
+    text-align:left;
+    margin-top:5px;
 }

@@ -157,7 +157,7 @@ public class MainController {
     public String ingresarLibro1(ModelMap modelo, Long isbn, String titulo, Integer anio, Integer ejemplares, String ideditorial, String idautor) {
 
         try {
-            System.out.println("Se rompio antes de libroservicio");
+            
             libroservicio.guardarLibro(isbn, titulo, anio, ejemplares, ideditorial, idautor);
         } catch (ErrorServicio ex) {
             List<Editorial> editoriales = editorrepositorio.findAll();
@@ -209,7 +209,7 @@ public class MainController {
         try {
             prestamoservicio.crearPrestamo(idlibro, idcliente);
         } catch (ErrorServicio ex) {
-            model.put("error", ex.getMessage());
+                model.put("error", ex.getMessage());
             return "OpcionesPrestamo.html";
         } 
         List<Libro> libros = librorepositorio.findAll();
