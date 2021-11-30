@@ -14,34 +14,10 @@ and open the template in the editor.
     </head>
     <body>
         <header class="container">
-            <h1>Logueate en nuestra plataforma</h1>
+            <h1>Inicio sesión exitosamente</h1>
         </header>
-        <a class="btn btn-secondary" aria-current="page" href="/loggout">Cerrar sesión</a> 
-        <form action="/ingresarUsuario" method="POST">
-          <div class="container">
-          <p  th:if="${error !=null}" th:text="${error}"></p>
-          <p class="exito" th:if="${exito !=null}" th:text="${exito}"></p>  
-          </div>
-          <div class="container">
-           <div class="input-group input-group-sm mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-sm">Email</span>
-              <input type="email" class="form-control" name="mail" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-             
-             
-
-           </div>
-              <br>
-                     <div class="input-group input-group-sm mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-sm">Clave</span>
-              <input type="password" class="form-control" name="clave" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-             
-             
-
-           </div>
-               <button type="submit" class="btn btn-primary">INGRESAR</button>
-          </div> 
-        </form>
-        <br>
+       
+        
         <div class="container">
             <div class="d-grid gap-2">
               <button class="btn btn-primary" type="button" ><a href="/">Volver a principal</a></button>

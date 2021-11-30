@@ -38,17 +38,18 @@ public class SeguridadConfiguracion extends WebSecurityConfigurerAdapter{
                     .loginProcessingUrl("/ingresarUsuario")
                     .usernameParameter("mail")
                     .passwordParameter("clave")
-                    .defaultSuccessUrl("/OpcionesAutor")/*index*/
+                    .defaultSuccessUrl("/logginexitoso")/*index*/
                     .permitAll()
                 .and().logout()
-                    .logoutSuccessUrl("/logout")/*hay que crear htmls*/
-                    .logoutSuccessUrl("/")
+                    .logoutUrl("/loggout")
+                    .logoutSuccessUrl("/registro")
+                    
                 
                 
                     .permitAll();
                 http.csrf().disable();
 
-    
+      
     
 }
 }

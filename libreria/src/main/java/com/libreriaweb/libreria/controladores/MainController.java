@@ -74,9 +74,22 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login() {
+    public String login(@RequestParam(required=false)  String error,String loggout,ModelMap model) {
+        if (error != null) {
+        model.put("error","El usuario o claves son incorrectos");
+        }
+        
         return "login.html";
     }
+    @GetMapping("/logginexitoso")
+    public String logginexitoso(){
+        
+        return "logginexitoso.html";
+    }
+    
+  
+    
+    
       @GetMapping("/registro")
     public String registro() {
         return "registro.html";
@@ -231,7 +244,7 @@ public class MainController {
     }
     /*USUARIO*/
     @PostMapping("/registrarUsuario")
-    private String ingresarUsuario(ModelMap modelo, String nombre, String apellido, String clave,String mail) {
+    private String registrarUsuario(ModelMap modelo, String nombre, String apellido, String clave,String mail) {
 
         try {
             usuarioservicio.guardarUsuario(nombre, apellido, clave,mail);
