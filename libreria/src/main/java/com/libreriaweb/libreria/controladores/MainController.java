@@ -258,5 +258,9 @@ public class MainController {
         return "registro.html";
 
     }
+    @PostMapping("/ingresoUsuario")
+    private String ingresoUsuario (ModelMap modelo,String mail,String clave){
+        
+    }
 
 }
