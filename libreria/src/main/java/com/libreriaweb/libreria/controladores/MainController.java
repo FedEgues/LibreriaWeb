@@ -81,11 +81,17 @@ public class MainController {
         
         return "login.html";
     }
+    
     @GetMapping("/logginexitoso")
     public String logginexitoso(){
         
         return "logginexitoso.html";
     }
+//        @GetMapping("/loggout")
+//    public String loggout(){
+//        
+//        return "loggout.html";
+//    }
     
   
     
@@ -258,9 +264,6 @@ public class MainController {
         return "registro.html";
 
     }
-    @PostMapping("/ingresoUsuario")
-    private String ingresoUsuario (ModelMap modelo,String mail,String clave){
-        
-    }
+   
 
 }
