@@ -15,8 +15,10 @@ and open the template in the editor.
     <body>
         <header class="container">
             <h1>Inicio sesión exitosamente</h1>
+            <h2 th:if="${session.usuariosession !=null }" th:text="${session.usuariosession.nombre+' '+session.usuariosession.apellido}"></h2>
+  
         </header>
-       
+      
         
         <div class="container">
             <div class="d-grid gap-2">

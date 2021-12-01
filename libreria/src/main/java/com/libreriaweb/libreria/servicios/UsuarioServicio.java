@@ -36,6 +36,8 @@ public class UsuarioServicio implements UserDetailsService
     @Autowired
     UsuarioRepositorio usuariorepositorio;
     
+    
+    
     @Transactional
     public void guardarUsuario(String nombre,String apellido,String clave,String mail)throws ErrorServicio{
         Usuario usuario=new Usuario();
@@ -74,7 +76,17 @@ public class UsuarioServicio implements UserDetailsService
         usuario.setMail(mail);
         usuariorepositorio.save(usuario);
     }
-    
+    @Transactional
+    public Usuario buscarUsuarioporId(String id)throws ErrorServicio{
+        
+        
+        Usuario usuario = usuariorepositorio.buscarPorId(id);
+        if (usuario ==null) {
+            throw new ErrorServicio("El usuario no ha sido encontrado.");
+        }
+           return usuario;
+        
+    }
      
 
     @Override
@@ -87,12 +99,19 @@ public class UsuarioServicio implements UserDetailsService
           permisos.add(new SimpleGrantedAuthority("ROLE_USUARIO_REGISTRADO"));
           //permisos.add(new SimpleGrantedAuthority("MODULO_AUTOR"));
           //permisos.add(new SimpleGrantedAuthority("MODULO_EDITORIAL"));
+          
+          
+          /*Ya ingersando el usuario de manera correcta, se incerta esto para  guardar el usuario de la base de datos y meterlo en la sesion web*/
+          
           ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+             /*Recupera los atributos del request htpp y solicita los datos de sesion*/
                 HttpSession session = attr.getRequest().getSession(true);
+                /*atributo usuariosession, se guardan todos los atributos del usuario*/
                 session.setAttribute("usuariosession", usuario);
                 System.out.println("usuario conectado");
 //                System.out.println(usuario);
                 
+
                 User user= new User(usuario.getMail(), usuario.getClave(), permisos);
                 return user;
 
@@ -102,4 +121,6 @@ public class UsuarioServicio implements UserDetailsService
         
         
     }
+    
+    
 }

@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,16 +73,20 @@ public class MainController {
     public String index() {
         return "index";
     }
-
+    
+    
     @GetMapping("/login")
     public String login(@RequestParam(required=false)  String error,String loggout,ModelMap model) {
         if (error != null) {
         model.put("error","El usuario o claves son incorrectos");
         }
-        
+        if(loggout != null) {
+           model.put("loggout","A cerrado sesión exitosamente");
+           
+        }  
         return "login.html";
     }
-    
+    @PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
     @GetMapping("/logginexitoso")
     public String logginexitoso(){
         
@@ -250,7 +255,7 @@ public class MainController {
     }
     /*USUARIO*/
     @PostMapping("/registrarUsuario")
-    private String registrarUsuario(ModelMap modelo, String nombre, String apellido, String clave,String mail) {
+    private String registrarUsuario(ModelMap modelo,String nombre, String apellido, String clave,String mail) {
 
         try {
             usuarioservicio.guardarUsuario(nombre, apellido, clave,mail);
