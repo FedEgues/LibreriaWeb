@@ -256,7 +256,7 @@ public class MainController {
     /*USUARIO*/
     @PostMapping("/registrarUsuario")
     private String registrarUsuario(ModelMap modelo,String nombre, String apellido, String clave,String mail) {
-
+        
         try {
             usuarioservicio.guardarUsuario(nombre, apellido, clave,mail);
         } catch (ErrorServicio ex) {

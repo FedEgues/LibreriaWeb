@@ -40,6 +40,7 @@ public class UsuarioServicio implements UserDetailsService
     
     @Transactional
     public void guardarUsuario(String nombre,String apellido,String clave,String mail)throws ErrorServicio{
+        
         Usuario usuario=new Usuario();
         if(nombre ==null || nombre.isEmpty() || apellido ==null || clave==null  || apellido.isEmpty() || clave.isEmpty() || mail.isEmpty()){
             throw new ErrorServicio("Ninguno de los valores puede ser nulo");
@@ -59,11 +60,15 @@ public class UsuarioServicio implements UserDetailsService
     }
     
      @Transactional
-    public void modificarUsuario(String nombre,String apellido,String clave,String mail){
+    public void modificarUsuario(String nombre,String apellido,String clave,String mail)throws ErrorServicio{
         
         
         Usuario usuario=usuariorepositorio.buscarPorMail(mail);
-        
+         if (usuario == null) {
+             throw new ErrorServicio("No se encontro el usuario");
+         }
+                
+                
         usuario.setNombre(nombre);
         usuario.setApellido(apellido);
         
@@ -72,7 +77,7 @@ public class UsuarioServicio implements UserDetailsService
 
        
         
-        usuario.setAlta(new Date());
+        usuario.setAlta(usuario.getAlta());
         usuario.setMail(mail);
         usuariorepositorio.save(usuario);
     }
@@ -102,6 +107,7 @@ public class UsuarioServicio implements UserDetailsService
           
           
           /*Ya ingersando el usuario de manera correcta, se incerta esto para  guardar el usuario de la base de datos y meterlo en la sesion web*/
+          /*SIRVE PARA PODER UTILIZAR LOS ATRIBUTOS DEL USUARIO Y PLASMARLOS EN EL FRONT*/
           
           ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
              /*Recupera los atributos del request htpp y solicita los datos de sesion*/

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -28,8 +29,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepositorio usuariorepositorio;
     
-    @GetMapping("/EditarUsuario")
+    @GetMapping("/editarUsuario")
     public String editarUsuario(String id,ModelMap modelo){
+        
         
         try{
             Usuario usuario = usuarioservicio.buscarUsuarioporId(id);
@@ -39,4 +41,19 @@ public class UsuarioController {
         }
         return "perfil.html";
     }
+    
+    @PostMapping("/actualizarUsuario")
+    public String actualizarUsuario (ModelMap modelo,String nombre, String apellido, String clave,String mail) {
+        
+        try {
+           usuarioservicio.modificarUsuario(nombre, apellido, clave, mail);
+        } catch (ErrorServicio ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            return "registro.html";
+        }
+        modelo.put("exito", "El ingreso del usuario fue actualizado exitosamente.");
+        return "indexp";
+}
 }

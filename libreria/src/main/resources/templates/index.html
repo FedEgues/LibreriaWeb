@@ -16,7 +16,7 @@
     <h1>BASE DE DATOS DE LIBRERIA </h1>
 </header>
 <h2 th:if="${session.usuariosession !=null }" th:text="${session.usuariosession.nombre+' '+session.usuariosession.apellido}"></h2>
-<a class="btn btn-secondary" aria-current="page" href="/login">Configurar tu Usuario</a> 
+<a class="btn btn-secondary" aria-current="page" th:href="@{/usuario/editarUsuario(id=${session.usuariosession.id}}">Configurar tu Usuario</a> 
 <ul class="nav justify-content-center">
     <li class="nav-item">
         <li class="nav-item" id="botonRegLog">
